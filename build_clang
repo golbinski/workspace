@@ -18,8 +18,8 @@ function build
     checkout $CFE/$1 $BUILDDIR/llvm/tools/clang
     checkout $COMPILER_RT/$1 $BUILDDIR/llvm/projects/compiler-rt
     mkdir $BUILDDIR/build
-    num_cores=`grep -c 'processor.*:' /proc/cpuinfo`
-    cd $BUILDDIR/build && cmake -G "Unix Makefiles" ../llvm && make -j$(num_cores)
+    local num_cores=`grep -c 'processor.*:' /proc/cpuinfo`
+    cd $BUILDDIR/build && cmake -G "Unix Makefiles" ../llvm && make -j$num_cores
 }
 
 function build_trunk
@@ -40,7 +40,7 @@ if [ -z "$BUILDDIR" ]
 then
     BUILDDIR=.
 else
-    mkdir -p $BUILDDIR
+    mkdir -fp $BUILDDIR
 fi
 
 case "$1" in
