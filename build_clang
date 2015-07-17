@@ -40,7 +40,7 @@ if [ -z "$BUILDDIR" ]
 then
     BUILDDIR=.
 else
-    mkdir -fp $BUILDDIR
+    mkdir -p $BUILDDIR
 fi
 
 case "$1" in
