@@ -1,0 +1,11 @@
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+export LC_ALL=C
+export LANG=en_us.utf-8
+export TERM=xterm-256color
+[ -f ~/.shell_prompt.sh ] && source ~/.shell_prompt.sh
+
+alias grep="grep --exclude-dir=.svn --exclude=*.svn* --color=auto"
