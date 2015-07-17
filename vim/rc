@@ -1,0 +1,68 @@
+" NOTE: To enable command history make sure the .viminfo file have
+"       right permissions!
+
+if !has('gui_running')
+    set t_Co=256
+endif
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+colorscheme zenburn
+syntax on
+set smarttab
+set cursorline
+set hlsearch
+set mouse=a
+set mousefocus
+set number
+set nowrap 
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set ic
+set guioptions+=b
+set backspace=2
+set backspace=indent,eol,start
+set wildmode=longest,list,full
+set wildmenu
+set filetype=on
+set clipboard=unnamedplus
+set relativenumber
+set colorcolumn=79
+set ruler
+set showmatch                   " Show matching brackets.
+set history=1000
+set nobackup                    " disable backup files
+set noswapfile                  " disable swap files
+set undofile
+set undodir=~/.vim/undo
+set incsearch                   " incremental search
+set smartcase                   " unless a capital letter is used
+set ff=unix                     " end lines unix-style
+set laststatus=2                " always display status line
+" Turn off annoying error bells:
+set noerrorbells
+set visualbell
+set t_vb=
+scriptencoding utf-8
+set encoding=utf-8
+
+" vnoremap - VISUAL
+" inoremap - INSERT
+" nnoremap - NORMAL
+nnoremap <C-Down> :tabnext<cr>
+nnoremap <C-Up> :tabprev<cr>
+nnoremap <C-t> :tabnew<cr>
+nnoremap <Tab> :tabnext<cr>
+nnoremap <C-Tab> :tabprev<cr>
+nnoremap <C-Space> :tselect<cr>
+nnoremap <S-t> :TagbarToggle<cr>
+nnoremap <S-h> :GundoToggle<cr>
+nnoremap <S-l> :setlocal relativenumber!<cr>
+nnoremap <S-find> :tabnew<cr>
+
+" remove leading whitespace
+autocmd FileType c,cpp autocmd BufWritePre <buffer> :%s/\s\+$//e
+
+" vim: filetype=vim
