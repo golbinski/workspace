@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+REPLACE=s/$1/$2/g
+find . -regex ".*\.\(py\)" -print | xargs sed -i "$REPLACE"
