@@ -1,0 +1,51 @@
+#! /usr/bin/env bash
+
+LLVM_PROJECT=http://llvm.org/svn/llvm-project/
+LLVM=$LLVM_PROJECT/llvm
+CFE=$LLVM_PROJECT/cfe
+CLANG_TOOLS_EXTRA=$LLVM_PROJECT/clang-tools-extra
+COMPILER_RT=$LLVM_PROJECT/compiler-rt
+
+function checkout
+{
+    echo "+++ checkout $1 to $2"
+    svn checkout $1 $2
+}
+
+function build
+{
+    checkout $LLVM/$1 $BUILDDIR/llvm
+    checkout $CFE/$1 $BUILDDIR/llvm/tools/clang
+    checkout $COMPILER_RT/$1 $BUILDDIR/llvm/projects/compiler-rt
+    mkdir $BUILDDIR/build
+	num_cores=`grep -c 'processor.*:' /proc/cpuinfo`
+    cd $BUILDDIR/build && cmake -G "Unix Makefiles" ../llvm && make -j$(num_cores)
+}
+
+function build_trunk
+{
+    echo "+++ building trunk in $BUILDDIR"
+    build trunk
+    echo "+++ done"
+}
+
+function build_tag
+{
+    echo "+++ building $1 in $BUILDDIR"
+    build tags/$1
+    echo "+++ done"
+}
+
+if [ -z "$BUILDDIR" ]
+then
+    BUILDDIR=.
+else
+    mkdir -p $BUILDDIR
+fi
+
+case "$1" in
+    [tT][rR][uU][nN][kK]) build_trunk ;;
+    RELEASE_*) build_tag $1 ;;
+    "") build_trunk ;;
+    *) echo 'Unrecognized argument!'
+esac
